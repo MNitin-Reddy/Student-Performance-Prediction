@@ -6,9 +6,11 @@ sys.path.append(str(Path(__file__).parent.parent))  #sys.path.append(os.path.joi
 from logger import logging
 from exception import CustomException
 
+
 from components.data_transformation import DataTransformation
 from components.data_transformation import DataTransformationConfig
-
+from components.model_trainer import ModelTrainer
+from components.model_trainer import ModelTrainerConfig
 
 import pandas as pd 
 from sklearn.model_selection import train_test_split
@@ -59,6 +61,9 @@ if __name__ =='__main__':
     train_path, test_path = obj.intiate_data_ingestion()
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_path,test_path)
+    train_arr,test_arr, _ = data_transformation.initiate_data_transformation(train_path,test_path)
+
+    modeltrainer = ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_arr,test_arr))
 
     
